@@ -26,7 +26,10 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
 
-mongoose.connect(process.env.ONLINE_URL);
+mongoose.connect(process.env.ONLINE_URL)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("Connection error:", err));
+
 
 
 const activeUsers = new Map();
@@ -261,30 +264,39 @@ app.post('/register', async (req, res) => {
 
 app.post('/adminlogin', async (req, res) => {
   console.log('Admin login request body:', req.body);
-  try {
-      // Find the user by email
-      console.log(Admin.find())
-      const user = await Admin.findOne({ email: req.body.email });
-      if (!user) {
-          console.log('User not found');  
-          return res.status(404).json({ error: 'User not found' });
-          
-      }
+  const allAdmins = await Admin.find();
+  console.log("All Admins from DB:", allAdmins);
 
-      // Compare the password
-      if (user.password !== req.body.password) {
-          return res.status(400).json({ error: 'Invalid credentials' });
+
+  try {
+    const { email, password } = req.body;
+
+    // Find user by email
+    const user = await Admin.findOne({ email });
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check password
+    if (user.password !== password) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Log full admin document
+    console.log("Logged in admin:", user);
+
+    return res.status(200).json({
+      message: "Login successful",
+      user: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
       }
-      res.status(200).json({
-          message: 'Login successful',
-          user: {
-             
-              email: user.email,        
-          }
-      });
+    });
   } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Server Error' });
+    console.error("Error during login:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 
