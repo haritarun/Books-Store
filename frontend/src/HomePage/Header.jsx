@@ -96,25 +96,25 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-5 py-4 md:px-10">
         
         <Link to="/" className="flex items-center text-xl font-semibold text-gray-500 ">
-          <p className="hover:text-gray-900  transition">Logo</p>
+          <p className="hover:text-gray-900  transition text-xl">Logo</p>
           <div className="hidden md:inline-flex ml-5 hover:text-gray " onClick={()=>setLocation(!isLocation)}>
-              <GrLocation size={20} color="green " className="mt-1"/>
+              <GrLocation size={25} color="green " className="mt-1"/>
               {
                 area!==null ? 
-                <p className="text-[15px] text-green-700">
+                <p className="text-[15px] text-green-700 mt-1">
                    {
                     area 
                    }
                    <span className="ml-1">{pincode}</span>
                 </p>
                 :
-                <p className="text-sm text-green-700">Add Location</p>
+                <p className="text-[15px] text-green-700 mt-1">Add Location</p>
               }
               {
                 isLocation ?
-                <RiArrowDropUpLine size={30} color="green"/>
+                <RiArrowDropUpLine size={35} color="green " />
                 :
-                <RiArrowDropDownLine size={30} className=""/>
+                <RiArrowDropDownLine size={35} className="green" />
               }
               
           </div>
@@ -140,7 +140,7 @@ const Navbar = () => {
   
           <div className="relative dropdown-menu" onMouseEnter={() => setShopOpen(true)} onMouseLeave={() => setShopOpen(false)}>
             <div className="flex items-center cursor-pointer">
-              <Link to="/shop" className="text-gray-500 hover:text-gray-900 transition">Shop</Link>
+              <Link to="/shop" className="text-gray-500 hover:text-gray-900 transition">Store</Link>
               {shopOpen ? <FaAngleDoubleDown size={15} className="ml-1" /> : <FaAngleDoubleUp size={15} className="ml-1" />}
             </div>
 

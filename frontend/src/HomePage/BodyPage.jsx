@@ -46,9 +46,8 @@ const BodyPage=()=>{
         <div className="flex h-screen items-center justify-center p-10">
           <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10" >
             <div data-aos="fade-up">
-              <h1 className="mb-2 text-3xl font-bold text-black"><span className="text-green-500">Welcome ,</span> To This Medical Page</h1>
-              <p className="mb-6 text-black">At MediCare, we bring healthcare to your fingertips with fast, 
-                reliable, and hassle-free medical services. 
+              <h1 className="mb-2 text-3xl font-bold text-black"><span className="text-green-500">Welcome ,</span> To This Books Store</h1>
+              <p className="mb-6 text-black">Discover enchanting worlds at 'Page Turner Paradise'—where vibrant shelves, cozy reading nooks, and the scent of fresh books lure every literary soul!"
                 Whether you need medicines,</p>
               <div className="flex justify-center space-x-5">
                 <button className="flex w-full items-center justify-center gap-1 rounded-2xl bg-rose-500 p-5 py-3 font-semibold text-white hover:bg-rose-700">

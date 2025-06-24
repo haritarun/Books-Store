@@ -17,8 +17,8 @@ const ProductImage = () => {
         <div className="pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
         <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg" data-aos="fade-up">
-            <h1 className="font text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Unveiling Pharmaceuticals:</h1>
-            <p className="mt-4 text-xl text-gray-500">Book your tablets online effortlessly and get them delivered to your doorstep with ease!</p>
+            <h1 className="font text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Wanderlust Pages:</h1>
+            <p className="mt-4 text-xl text-gray-500">Book your Book online effortlessly and get them delivered to your doorstep with ease!</p>
             </div>
             <div>
             <div className="mt-10">

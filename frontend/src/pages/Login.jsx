@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import logo from '../assets/img/logo.png';  
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -26,41 +26,64 @@ const Login = () => {
 
     
     const handleLogin = async () => {
-        if (!email || !password) {
-            if (!email) {
-                showErrorPopup('Email is required.');
-            }
-            if (!password) {
-                showErrorPopup('Password is required.');
-            }
+    if (!email || !password) {
+        if (!email) {
+            showErrorPopup('Email is required.');
+        }
+        if (!password) {
+            showErrorPopup('Password is required.');
+        }
+        return;
+    }
+
+    try {
+        // First try admin login
+        console.log('Attempting admin login with email:', email);
+        const adminResponse = await axios.post(`${DOMAIN}/adminlogin`, {
+            email: email,
+            password: password
+        });
+        
+        if (adminResponse.status === 200) {
+            localStorage.setItem('email', email);
+            navigate('/admincategory');
             return;
         }
-
+    } catch (error) {
+        // If admin login fails, try regular user login
+        console.error('Admin login failed:', error);
         try {
+            console.log('Attempting user login with email:', email);
             const response = await axios.post(`${DOMAIN}/login`, {
                 email: email,
                 password: password,
             });
-            
-            
-            localStorage.setItem('email', email);  
+
             if (response.status === 200) {
+                localStorage.setItem('email', email);
                 navigate('/');
+                return;
             }
-        } catch (err) {
-            if (err.response) {
-                if (err.response.status === 401) {
+        } catch (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                if (error.response.status === 401) {
                     showErrorPopup('Incorrect password. Please try again.');
-                } else if (err.response.status === 404) {
+                } else if (error.response.status === 404) {
                     showErrorPopup('User not found. Please check your email.');
                 } else {
                     showErrorPopup('Something went wrong. Please try again later.');
                 }
-            } else {
+            } else if (error.request) {
+                // The request was made but no response was received
                 showErrorPopup('Network error. Please check your connection.');
+            } else {
+                // Something happened in setting up the request
+                showErrorPopup('An unexpected error occurred. Please try again.');
             }
         }
-    };
+    }
+};
 
     
     const handleSubmit = (e) => {
@@ -189,7 +212,7 @@ const Login = () => {
 
                             {/* Register Link */}
                             <p className="mt-4 text-xs text-gray-600 text-center">
-                                You don't have an account? Please <Link to="/register" className="font-bold text-blue-700">Register</Link>
+                                You don have an account? Please <Link to="/register" className="font-bold text-blue-700">Register</Link>
                             </p>
                         </div>
                     </div>

@@ -7,7 +7,6 @@ const DOMAIN = import.meta.env.VITE_DOMAIN
 const Cart = () => {
     const [data,setData]=useState([])
     
-   
     useEffect(()=>{
         
         fetchedList()

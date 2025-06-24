@@ -31,7 +31,7 @@ mongoose.connect(process.env.ONLINE_URL);
 
 const activeUsers = new Map();
 
-// OTP expiration time (2 minutes)
+
 const OTP_EXPIRATION_TIME = 2 * 60 * 1000;
 let otpStore = {};
 
@@ -259,13 +259,16 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/admin_login', async (req, res) => {
+app.post('/adminlogin', async (req, res) => {
   console.log('Admin login request body:', req.body);
   try {
       // Find the user by email
+      console.log(Admin.find())
       const user = await Admin.findOne({ email: req.body.email });
       if (!user) {
+          console.log('User not found');  
           return res.status(404).json({ error: 'User not found' });
+          
       }
 
       // Compare the password
@@ -381,7 +384,7 @@ app.delete('/delete', async (req, res) => {
 
 
 app.post('/login', async (req, res) => {
-    console.log('Login request body:', req.body);
+    console.log('Login request body:', req.body); 
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) return res.status(404).json({ error: 'User not found' });
