@@ -26,10 +26,10 @@ const Feedback = () => {
     try { 
       const response = await axios.get(`${DOMAIN}/getFeedbackLength`)
       console.log("Feedback Length Data:", response.data);
-      setSuggestions(response.data.suggestion)
-      setCompliments(response.data.compliment)
-      setQuery(response.data.bugReport)
-      setOthers(response.data.other)
+      setSuggestions(response.data.Suggestion)
+      setCompliments(response.data.Compliment)
+      setQuery(response.data.BugReport)
+      setOthers(response.data.Other)
 
     } catch (error) {
       console.error("Error fetching data:",error); 

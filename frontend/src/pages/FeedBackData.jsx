@@ -56,10 +56,10 @@ const FeedBackData = () => {
           }}
         >
           <option value="all">All Types</option>
-          <option value="suggestion">Suggestion</option>
-          <option value="compliment">Compliment</option>
-          <option value="bug">Bug Report</option>
-          <option value="other">Other</option>
+          <option value="Suggestion">Suggestion</option>
+          <option value="Compliment">Compliment</option>
+          <option value="BugReport">Bug Report</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 

@@ -74,13 +74,13 @@ app.post('/feedback',async(req,res)=>{
 
 app.get('/getFeedbackLength',async(req,res)=>{
   const hashmap = {
-    suggestion: 0,
-    compliment: 0,
-    berverugReport: 0,
-    other: 0
+    Suggestion: 0,
+    Compliment: 0,
+    BugReport: 0,
+    Other: 0
   }
   const feedbacks = await Feedback.find();
-  console.log(feedbacks)
+  
   feedbacks.forEach(feedback => {
     if (feedback.messageType in hashmap) {
       hashmap[feedback.messageType]++;
@@ -93,8 +93,7 @@ app.get('/getFeedbackLength',async(req,res)=>{
 app.get('/getFeedbackData',async(req,res)=>{
   try {
     const feedbacks = await Feedback.find();
-    
-
+  
     res.status(200).json(feedbacks);
   } catch (error) {
     console.error("Error fetching feedback data:", error);
@@ -108,7 +107,8 @@ app.get('/getLength',async(req,res)=>{
   try {
     const users = await User.find();
     const carts = await Cart.find();
-    
+    const feedback  = await Feedback.find();
+
     let items = 0
     let order = 0
     for (let i = 0 ;i< carts.length;i++){
@@ -118,7 +118,7 @@ app.get('/getLength',async(req,res)=>{
       }
     }
     
-    data.push({userCount: users.length,cartCount:items,orderCount:order,feedbackCount:Feedback.length});
+    data.push({userCount: users.length,cartCount:items,orderCount:order,feedbackCount:feedback.length});
     res.status(200).json(data);
 
   } catch (error) {
