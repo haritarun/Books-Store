@@ -261,7 +261,7 @@ const AdminCategory = () => {
                     </button>
                 </div>
                 <nav className="flex-1 p-4 space-y-4">
-                    <Link to="/dashboard" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
+                    <Link to="/admindashboard" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
                         Dashboard
                     </Link>
                     <Link to="/adminchatpage" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
@@ -270,9 +270,16 @@ const AdminCategory = () => {
                     <Link to="/admincategory" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
                         Store
                     </Link>
-                    <Link to="/reports" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
-                        Reports
+                    <Link to="/feedbacks" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
+                        FeedBacks
                     </Link>
+                    <div className="p-5 top-0  border-gray-700">
+                    <Link to="/login">
+                    <button className="w-full py-2 px-6  text-lg bg-red-600 rounded hover:bg-red-700 transition">
+                        Logout                            
+                    </button>
+                    </Link>
+                    </div>
                 </nav>
             </aside>
 

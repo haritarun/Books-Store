@@ -24,6 +24,8 @@ import FinalOrder from './FinalOrder/FinalOrder';
 import Product from './Product/Product'
 import Payment from './Payment/Payment';
 import Map from './HomePage/Map';
+import AdminDashboard from './pages/AdminDashboard';
+import FeedBack from './pages/FeedBack';
 
 
 function App() {
@@ -48,7 +50,12 @@ function App() {
         <Route exact path="/product" element={<Product /> } />
         <Route exact path="/payment" element={<Payment />} />
         <Route exact path="/map" element={<Map />}  />
+        <Route exact path="/admindashboard" element={<AdminDashboard />} />
+        <Route exact path="/feedbacks" element={<FeedBack />} />
+        
+        {/* Add more routes as needed */}
       </Routes>
+
      </BrowserRouter>
   );
 }

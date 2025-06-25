@@ -46,7 +46,7 @@ const Login = () => {
         
         if (adminResponse.status === 200) {
             localStorage.setItem('email', email);
-            navigate('/admincategory');
+            navigate('/admindashboard');
             return;
         }
     } catch (error) {

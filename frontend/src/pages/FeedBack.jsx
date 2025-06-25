@@ -4,19 +4,19 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import chroma from "chroma-js";
 import axios from "axios";
-
+import FeedBackData from "./FeedBackData";
 
 const DOMAIN = import.meta.env.VITE_DOMAIN || "http://localhost:5000";
 
-const AdminDashboard = () => {
+const Feedback = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   
-  const [userLength, setUserLength] = useState(0);
-  const [orderLength, setOrderLength] = useState(0);
-  const [productLength, setProductLength] = useState(0);
-  const [feedbackLength, setFeedbackLength] = useState(0);
-  const lengthArray = [userLength, orderLength, productLength, feedbackLength];
+  const [suggestions,setSuggestions] = useState(0)
+  const [compliments,setCompliments] = useState(0)
+  const [query,setQuery] = useState(0)
+  const [others ,setOthers ]=  useState(0)
+  const lengthArray = [suggestions,compliments,query,others]
 
   useEffect(() => {
     fetchedList()
@@ -24,22 +24,19 @@ const AdminDashboard = () => {
 
   const fetchedList = async () => {
     try { 
-      const response = await axios.get(`${DOMAIN}/getLength`)
-      
-      setUserLength(response.data[0].cartCount);
-      setOrderLength(response.data[0].userCount);
-      setProductLength(response.data[0].orderCount);
-      setFeedbackLength(response.data[0].feedbackCount);
-      
-
+      const response = await axios.get(`${DOMAIN}/getFeedbackLength`)
+      console.log("Feedback Length Data:", response.data);
+      setSuggestions(response.data.suggestion)
+      setCompliments(response.data.compliment)
+      setQuery(response.data.bugReport)
+      setOthers(response.data.other)
 
     } catch (error) {
-
-      console.error("Error fetching data:", error); 
+      console.error("Error fetching data:",error); 
     }
   };
   
-  const labels = ["Users","Orders", "Products","Feedback"];
+  const labels = ["Suggestions","Compliments","Query","Others"];
   const values =  lengthArray; 
   const colorScale = chroma
     .scale(["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"])
@@ -50,11 +47,11 @@ const AdminDashboard = () => {
     labels: labels,
     datasets: [
       {
-        label: "Data Overview",
+        label: "Feedback Data Overview",
         data: values,
         backgroundColor: colorScale,
         borderColor: "#ffffff",
-        borderWidth: 1,
+        borderWidth: 0.5,
         hoverBackgroundColor: chroma.scale(["#FF0000"]).colors(labels.length),
       },
     ],
@@ -137,18 +134,32 @@ const AdminDashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-4 md:p-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6">Custom Colored Bar Chart</h2>
-          <div className="bg-white p-4 rounded-lg shadow">
-            <div className="h-80">
-              <Bar data={data} options={options} />
+      <div className="flex-1 flex flex-col md:mx-40 bg-gray-100 min-h-screen">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8">
+            <div className="max-w-4xl space-y-8">
+            {/* Chart Section */}
+            <div>
+                <h2 className="text-2xl font-bold mb-6">FeedBacks Data</h2>
+                <div className="bg-white p-4 rounded-lg shadow">
+                <div className="h-96"> {/* Fixed height for chart container */}
+                    <Bar data={data} options={options} />
+                </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </main>
+
+            {/* Table Section */}
+            <div>
+                <h2 className="text-2xl font-bold mb-6">FeedBacks</h2>
+                <div className="bg-white p-4 rounded-lg shadow overflow-x-auto">
+                <FeedBackData />
+                </div>
+            </div>
+            </div>
+        </main>
+    </div>
+    
     </div>
   );
 };
 
-export default AdminDashboard;
+export default Feedback;

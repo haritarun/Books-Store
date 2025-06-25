@@ -9,12 +9,15 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const http = require("http");
 const { Server } = require("socket.io");
+
 const Chat = require("./models/Chat");
 const Admin = require("./models/Admin");
 const Tablets=require("./models/Tablets");
 const Cart = require('./models/Cart')
 const Address = require('./models/Address')
 const Location = require('./models/CurrentLocation')
+const Feedback = require('./models/Feedback');
+
 require("dotenv").config()
 
 
@@ -46,6 +49,83 @@ const transporter = nodemailer.createTransport({
     
   },
 });
+
+app.post('/feedback',async(req,res)=>{
+  const { firstName, lastName, email, phone, message,messageType} = req.body;
+  
+  try {
+    const feedback = new Feedback({
+      firstName,
+      lastName,
+      email,
+      phoneNumber: phone,
+      messageType,
+      message,
+
+    });
+
+    await feedback.save();
+    res.status(200).json({ message: "Feedback submitted successfully" });
+  } catch (error) {
+    console.error("Error submitting feedback:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+})
+
+app.get('/getFeedbackLength',async(req,res)=>{
+  const hashmap = {
+    suggestion: 0,
+    compliment: 0,
+    berverugReport: 0,
+    other: 0
+  }
+  const feedbacks = await Feedback.find();
+  console.log(feedbacks)
+  feedbacks.forEach(feedback => {
+    if (feedback.messageType in hashmap) {
+      hashmap[feedback.messageType]++;
+    } 
+  });
+  res.status(200).json(hashmap);
+
+})
+
+app.get('/getFeedbackData',async(req,res)=>{
+  try {
+    const feedbacks = await Feedback.find();
+    
+
+    res.status(200).json(feedbacks);
+  } catch (error) {
+    console.error("Error fetching feedback data:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+})
+
+app.get('/getLength',async(req,res)=>{
+  
+  const data = []
+  try {
+    const users = await User.find();
+    const carts = await Cart.find();
+    
+    let items = 0
+    let order = 0
+    for (let i = 0 ;i< carts.length;i++){
+      for (let j = 0 ; j < (carts[i].array).length;j++){
+        items +=1
+        order += carts[i].array[j].quantity
+      }
+    }
+    
+    data.push({userCount: users.length,cartCount:items,orderCount:order,feedbackCount:Feedback.length});
+    res.status(200).json(data);
+
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+})
 
 // Generate OTP
 const generateOTP = () => {
@@ -263,9 +343,7 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/adminlogin', async (req, res) => {
-  console.log('Admin login request body:', req.body);
-  const allAdmins = await Admin.find();
-  console.log("All Admins from DB:", allAdmins);
+  
 
 
   try {
