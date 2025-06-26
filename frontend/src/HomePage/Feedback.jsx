@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import {useEffect,useState} from 'react'
 import AOS from "aos";
 import "aos/dist/aos.css";
 import axios from 'axios';
@@ -13,31 +13,59 @@ const Feedback = () => {
   const [email,setEmail]=useState("")
   const [phone,setPhone]=useState("")
   const [message,setMessage]=useState("")
-  const [messageType,setMessageType]=useState("")
+  const [messageType,setMessageType]=useState("Suggestion")
 
   
-     useEffect(()=>{
-          AOS.init({
-          duration:1500,
-          once:true
-          })
-    })
+  useEffect(()=>{
+        AOS.init({          
+        duration:1500,
+        once:true
+      })
+  })
 
    
   const getSubmit = async (e) => {
-    e.preventDefault();
-    if (firstName && lastName && email && phone && message && messageType) {
-      try {
-        const response = await axios.post(`${DOMAIN}/feedback`, {
-          firstName,lastName,email,phone,message,messageType
+  e.preventDefault();
+  if (firstName && lastName && email && phone && message && messageType) {
+    try {
+      const response = await axios.post(`${DOMAIN}/feedback`, {
+        firstName, lastName, email, phone, message, messageType
+      });
+      
+      
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+      setMessageType("");
+
+      if (response.data.isDuplicate) {
+        toast.info("You've already submitted feedback. Thank you!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
         });
-        if (response.status === 200) {
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          setPhone("");
-          setMessage("");
-          setMessageType("");
+      } else {
+        try {
+          await axios.post(`${DOMAIN}/sendFeedbackMail`, {
+            firstName,
+            lastName,
+            email,
+          });
+          toast.success("Thank you for your feedback! Confirmation email sent.", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        } catch (mailError) {
+          console.error("Failed to send mail:", mailError);
           toast.success("Thank you for your feedback!", {
             position: "top-right",
             autoClose: 3000,
@@ -47,13 +75,10 @@ const Feedback = () => {
             draggable: true,
           });
         }
-      }catch(error) {
-        console.error("Error submitting feedback:", error);
       }
-      
-    } else {
-
-      toast.error("Please fill in all fields", {
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      toast.error("Failed to submit feedback. Please try again.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -62,7 +87,17 @@ const Feedback = () => {
         draggable: true,
       });
     }
+  } else {
+    toast.error("Please fill in all fields", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   }
+};
   return (
     <div className="bg-white px-6 py-12 sm:py-24 lg:px-8">
       <ToastContainer />

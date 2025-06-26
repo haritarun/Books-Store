@@ -4,6 +4,14 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {useNavigate} from 'react-router-dom'
 const DOMAIN = import.meta.env.VITE_DOMAIN
+import Books21 from "../assets/img/Books21.jpg";
+import Books22 from "../assets/img/Books22.jpg";
+import Books23 from "../assets/img/Books23.jpg";
+import Books24 from "../assets/img/Books24.jpg";
+import Books25 from "../assets/img/Books25.jpg";
+import Books26 from "../assets/img/Books26.jpg";
+import Books27 from "../assets/img/Books27.jpg";
+
 
 
 const SwiperCard = () => {
@@ -16,63 +24,63 @@ const SwiperCard = () => {
   };
 
   const [cards, setCards] = useState([
-    {
-      id: 1,
-      image: `https://loremflickr.com/300/200/${encodeURIComponent('grape')}`,
-      title: 'Cocktail',
-      description: 'Tropical mix of flavors, perfect for parties.',
-      price: 8.99,
-      link: 'https://lqrs.com',
-    },
-    {
-      id: 2,
-      image: `https://loremflickr.com/300/200/${encodeURIComponent('apple')}`,
-      title: 'Smoothie',
-      description: 'Refreshing blend of fruits and yogurt,perfect for parties',
-      price: 5.49,
-      link: 'https://lqrs.com',
-    },
-    {
-      id: 3,
-      image: `https://loremflickr.com/300/200/${encodeURIComponent('banana')}`,
-      title: 'Iced Coffee',
-      description: 'Cold brewed coffee with a hint of vanilla.',
-      price: 4.99,
-      link: 'https://lqrs.com',
-    },
-    {
-      id: 4,
-      image: `https://loremflickr.com/300/200/${encodeURIComponent('berry')}`,
-      title: 'Mojito',
-      description: 'Classic Cuban cocktail with mint and lime.',
-      price: 7.99,
-      link: 'https://lqrs.com',
-    },
-    {
-      id: 5,
-      image: `https://loremflickr.com/300/200/${encodeURIComponent('orange')}`,
-      title: 'Matcha Latte',
-      description: 'Creamy green tea latte, rich in antioxidants.',
-      price: 6.49,
-      link: 'https://lqrs.com',
-    },
-    {
-      id: 6,
-      image: `https://loremflickr.com/300/200/${encodeURIComponent('peach')}`,
-      title: 'Fruit Punch',
-      description: 'Sweet and tangy punch, bursting with fruity flavors.',
-      price: 3.99,
-      link: 'https://lqrs.com',
-    },
-    {
-      id: 7,
-      image: `https://loremflickr.com/300/200/${encodeURIComponent('cherry')}`,
-      title: 'Bubble Tea',
-      description: 'Chewy tapioca pearls in a sweet milk tea base.',
-      price: 4.99,
-      link: 'https://lqrs.com',
-    },
-  ]);
+  {
+    id: 1,
+    image: Books21,
+    title: 'The Midnight Library',
+    description: 'A novel about a library between life and death where each book represents a different life path.',
+    price: 12.99,
+    link: 'https://bookstore.com/midnight-library',
+  },
+  {
+    id: 2,
+    image: Books22,
+    title: 'Project Hail Mary',
+    description: 'A lone astronaut must save the earth from disaster in this science fiction adventure.',
+    price: 14.99,
+    link: 'https://bookstore.com/project-hail-mary',
+  },
+  {
+    id: 3,
+    image:Books23,
+    title: 'The Silent Patient',
+    description: 'A psychological thriller about a woman who shoots her husband and then stops speaking.',
+    price: 10.49,
+    link: 'https://bookstore.com/silent-patient',
+  },
+  {
+    id: 4,
+    image: Books24,
+    title: 'Educated',
+    description: 'A memoir about a woman who leaves her survivalist family and goes on to earn a PhD.',
+    price: 13.99,
+    link: 'https://bookstore.com/educated',
+  },
+  {
+    id: 5,
+    image: Books25,
+    title: 'Atomic Habits',
+    description: 'A guide to building good habits and breaking bad ones with proven strategies.',
+    price: 11.99,
+    link: 'https://bookstore.com/atomic-habits',
+  },
+  {
+    id: 6,
+    image:Books26,
+    title: 'The Book Thief',
+    description: 'A story set in Nazi Germany about a girl who steals books and shares them with others.',
+    price: 9.99,
+    link: 'https://bookstore.com/book-thief',
+  },
+  {
+    id: 7,
+    image:Books27,
+    title: 'The Love Hypothesis',
+    description: 'A fake dating romance between a PhD candidate and a young professor.',
+    price: 8.99,
+    link: 'https://bookstore.com/love-hypothesis',
+  },
+]);
   const [cartList,setCartList]=useState([])
   const navigate = useNavigate()
 

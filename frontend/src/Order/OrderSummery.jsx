@@ -35,7 +35,7 @@ const OrderSummery = () => {
         try{
             const response=await axios.get(`${DOMAIN}/getDetailes?email=${email}`)
             setData(response.data)   
-            console.log(data)         
+            
         }catch(e){
             console.log('something went wrong',e)
         }
@@ -46,8 +46,9 @@ const OrderSummery = () => {
         try{
             const response=await axios.get(`${DOMAIN}/getuserdetailes?email=${email}`)
             if (response.status==200){
-                setuserData(response.data)
                 
+                setuserData(response.data)
+
                 
             }
         }catch(e){

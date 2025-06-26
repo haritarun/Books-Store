@@ -1,6 +1,13 @@
 import {useEffect} from 'react'
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Books8 from '../assets/img/Books8.jpg';
+import Books9 from '../assets/img/Books9.jpg';
+import Books10 from '../assets/img/Books10.jpg';
+import Books11 from '../assets/img/Books11.jpg';
+import Books12 from '../assets/img/Books12.jpg';
+import Books13 from '../assets/img/Books13.jpg';
+import Books14 from '../assets/img/Books14.jpg';
 
 
 const ProductImage = () => { 
@@ -28,29 +35,29 @@ const ProductImage = () => {
                     <div className="flex items-center space-x-6 lg:space-x-8">
                     <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                         <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIV_vSZrDmtJsCTHUPO6WLdwS-XAlazPPAPblQ9XInn5RlwyLUSAj4NTPm7zKJRdkLD_0&usqp=CAU" className="h-full w-full object-cover object-center" />
+                        <img src={Books8} className="h-full w-full object-cover object-center" />
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img src="https://thumbs.dreamstime.com/b/pharmacy-background-dark-table-levitation-pills-tablets-dark-background-which-falling-down-pills-medicine-health-67120929.jpg" alt="" className="h-full w-full object-cover object-center" />
-                        </div>
-                    </div>
-                    <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuQy-1-E-rneosUP_BvMzvalaIBljSY-QsA2ArHSB6UqGyOqaU8Odx-y1rlDlRxE5jdCQ&usqp=CAU" alt="" className="h-full w-full object-cover object-center" />
-                        </div>
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img src="https://t3.ftcdn.net/jpg/11/56/87/74/360_F_1156877412_w6xQxfoD9oMcgRiAblD3qwYsoZVrpvaQ.jpg" alt="" className="h-full w-full object-cover object-center" />
-                        </div>
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1628771065518-0d82f1938462?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGlsbHN8ZW58MHx8MHx8fDA%3D" alt="" className="h-full w-full object-cover object-center" />
+                        <img src={Books9} alt="" className="h-full w-full object-cover object-center" />
                         </div>
                     </div>
                     <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img src="https://img.freepik.com/premium-photo/capsules-with-medicine-empty-bottle-white-background_160672-10453.jpg" alt="" className="h-full w-full object-cover object-center" />
+                        <img src={Books10} alt="" className="h-full w-full object-cover object-center" />
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img src="https://www.verywellhealth.com/thmb/HXweuW5iQ5_fd0d6Jzoixs_wJAo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/medicine-pills-463594335-ba46b2f34a764be6a9c0e56a308cb938.jpg" alt="" className="h-full w-full object-cover object-center" />
+                        <img src={Books13} alt="" className="h-full w-full object-cover object-center" />
+                        </div>
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                        <img src={Books11} alt="" className="h-full w-full object-cover object-center" />
+                        </div>
+                    </div>
+                    <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                        <img src={Books12} alt="" className="h-full w-full object-cover object-center" />
+                        </div>
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                        <img src={Books14} alt="" className="h-full w-full object-cover object-center" />
                         </div>
                     </div>
                     </div>

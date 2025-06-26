@@ -261,7 +261,7 @@ const AdminCategory = () => {
                     </button>
                 </div>
                 <nav className="flex-1 p-4 space-y-4">
-                    <Link to="/admindashboard" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
+                    <Link to="/dashboard" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
                         Dashboard
                     </Link>
                     <Link to="/adminchatpage" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
@@ -270,16 +270,9 @@ const AdminCategory = () => {
                     <Link to="/admincategory" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
                         Store
                     </Link>
-                    <Link to="/feedbacks" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
-                        FeedBacks
+                    <Link to="/reports" className="block py-2 px-4 rounded hover:bg-gray-700 transition">
+                        Reports
                     </Link>
-                    <div className="p-5 top-0  border-gray-700">
-                    <Link to="/login">
-                    <button className="w-full py-2 px-6  text-lg bg-red-600 rounded hover:bg-red-700 transition">
-                        Logout                            
-                    </button>
-                    </Link>
-                    </div>
                 </nav>
             </aside>
 
@@ -311,10 +304,10 @@ const AdminCategory = () => {
                     <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
                         <thead className="bg-blue-600 text-white">
                             <tr>
-                                <th className="py-3 px-6">Tablet Name</th>
+                                <th className="py-3 px-6">Book Name</th>
                                 <th className="py-3 px-6">Desk No</th>
-                                <th className="py-3 px-6">Mfg Date</th>
-                                <th className="py-3 px-6">Exp Date</th>
+                                <th className="py-3 px-6">Published Date</th>
+                                <th className="py-3 px-6">Distributed Date</th>
                                 <th className="py-3 px-6">No of Sets</th>
                                 <th className="py-3 px-6">Actions</th>
                             </tr>
@@ -379,7 +372,7 @@ const AdminCategory = () => {
                             <input
                                 type="text"
                                 name="tabletName"
-                                placeholder="Tablet Name"
+                                placeholder="Book Name"
                                 value={newRow.tabletName}
                                 onChange={handleNewRowChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md"

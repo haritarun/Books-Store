@@ -3,6 +3,14 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import Books1 from "../assets/img/Books1.jpg";
+import Books2 from "../assets/img/Books2.webp";
+import Books3 from "../assets/img/Books3.jpg";
+import Books4 from "../assets/img/Books4.jpg";
+import Books5 from "../assets/img/Books5.jpg";
+import Books6 from "../assets/img/Books6.jpg";
+import Books7 from "../assets/img/Books7.jpg";
+
 
 
 const BodyPage=()=>{
@@ -48,7 +56,7 @@ const BodyPage=()=>{
             <div data-aos="fade-up">
               <h1 className="mb-2 text-3xl font-bold text-black"><span className="text-green-500">Welcome ,</span> To This Books Store</h1>
               <p className="mb-6 text-black">Discover enchanting worlds at 'Page Turner Paradise'—where vibrant shelves, cozy reading nooks, and the scent of fresh books lure every literary soul!"
-                Whether you need medicines,</p>
+               </p>
               <div className="flex justify-center space-x-5">
                 <button className="flex w-full items-center justify-center gap-1 rounded-2xl bg-rose-500 p-5 py-3 font-semibold text-white hover:bg-rose-700">
                     Visit Now
@@ -64,25 +72,27 @@ const BodyPage=()=>{
             </div>
             <div>
               <div className="hidden md:block md:columns-2 xl:columns-3 gap-7 ">
-                <div className=" break-inside-avoid mb-8" data-aos="fade-right">
-                    <img className="h-auto max-w-full rounded-lg hover:scale-110 transition-transform duration-500 ease-in-out" src="https://pagedone.io/asset/uploads/1688031162.jpg" alt="Gallery image" />
-                </div>
+                
                 <div className=" break-inside-avoid  mb-8" data-aos="fade-right">
-                    <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src="https://pagedone.io/asset/uploads/1688031232.jpg" alt="Gallery image" />
+                    <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src={Books4} alt="Gallery image" />
                 </div>
                 <div className=" break-inside-avoid  mb-8" data-aos="fade-up">
-                    <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src="https://pagedone.io/asset/uploads/1688031357.jpg" alt="Gallery image" />
+                    <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src={Books7} alt="Gallery image" />
                 </div>
                 <div className=" break-inside-avoid  mb-8" data-aos="fade-up">
-                <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src="https://pagedone.io/asset/uploads/1688031375.jpg" alt="Gallery image" />
+                <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src={Books1} alt="Gallery image" />
+                </div>
+                <div className=" break-inside-avoid  mb-8" data-aos="fade-up">
+                <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src={Books5} alt="Gallery image" />
                 </div>
                 <div className=" break-inside-avoid  mb-8" data-aos="fade-left">
-                <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src="https://pagedone.io/asset/uploads/1688031396.jpg" alt="Gallery image" />
+                  <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src={Books3} alt="Gallery image" />
                 </div>
                 <div className=" break-inside-avoid  mb-8" data-aos="fade-left">
-                <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src="https://pagedone.io/asset/uploads/1688031414.png" alt="Gallery image" />
+                  <img className="h-auto max-w-full rounded-lg  hover:scale-110 transition-transform duration-500 ease-in-out" src={Books6} alt="Gallery image" />
                 </div>
-                </div>
+              </div>
+
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { MdOutlineMyLocation } from "react-icons/md";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import axios from 'axios';
 import {Link} from 'react-router-dom'
-const DOMAIN = import.meta.env.VITE_SOCKET_DOMAIN
+const DOMAIN = import.meta.env.VITE_DOMAIN
 
 
 const Location = () => {
@@ -11,13 +11,6 @@ const Location = () => {
     const [city,setCity]=useState('')
     const [state,setState]=useState('')
     const [pincode,setPincode]=useState('')
-
-    useEffect(() => {
-        console.log(area, city, state, pincode); 
-    },);
-    
-    
-        
     
 
     const getAddress = async (lat, lon) => {
@@ -32,6 +25,7 @@ const Location = () => {
     
                 
                 const area = output[1] || "";
+                console.log(area)
                 const city = output[2] || "";
                 const state = output[3] || "";
                 const pincode = output[4] || "";

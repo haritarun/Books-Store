@@ -1,51 +1,66 @@
 import React, { useRef, useState } from "react";
+import Books28 from '../assets/img/Books28.jpg'
+import Books29 from '../assets/img/Books29.jpg'
+import Books30 from '../assets/img/Books30.jpg'
+import Books31 from '../assets/img/Books31.jpg'
+import Books32 from '../assets/img/Books32.jpg'
+import Books33 from '../assets/img/Books33.avif'
+import Books34 from '../assets/img/Books34.jpg'
+
 
 
 const SwipeCards = () => {
   const [cards] = useState([
-    {
-      id: 1,
-      image: `https://loremflickr.com/300/200/grape`,
-      title:'Dettol'
-     
-    },
-    {
-      id: 2,
-      image: `https://loremflickr.com/300/200/apple`,
-      title:'Savlon'
-      
-    },
-    {
-      id: 3,
-      image: `https://loremflickr.com/300/200/banana`,
-      title:"Lifebuoy"
-    },
-    {
-      id: 4,
-      image: `https://loremflickr.com/300/200/berry`,
-      title: "Himalaya",
-      
-    },
-    {
-      id: 5,
-      image: `https://loremflickr.com/300/200/orange`,
-      title: "Nivea",
-      
-    },
-    {
-      id: 6,
-      image: `https://loremflickr.com/300/200/peach`,
-      title: "Pond's",
-      
-    },
-    {
-      id: 7,
-      image: `https://loremflickr.com/300/200/cherry`,
-      title: "Colgate",
-      
-    },
-  ]);
-
+  {
+    id: 1,
+    image:Books28,
+    title: 'J.K. Rowling',
+    type: 'Fantasy',
+    notableWork: 'Harry Potter Series'
+  },
+  {
+    id: 2,
+    image:Books29,
+    title: 'Stephen King',
+    type: 'Horror/Thriller',
+    notableWork: 'The Shining, IT'
+  },
+  {
+    id: 3,
+    image:Books30,
+    title: 'Agatha ',
+    type: 'Mystery',
+    notableWork: 'Murder on the Orient Express'
+  },
+  {
+    id: 4,
+    image: Books31,
+    title: 'Jane Austen',
+    type: 'Classic Literature',
+    notableWork: 'Pride and Prejudice'
+  },
+  {
+    id: 5,
+    image: Books32,
+    title: ' R.R. Martin',
+    type: 'Epic Fantasy',
+    notableWork: 'A Song of Ice and Fire (Game of Thrones)'
+  },
+  {
+    id: 6,
+    image:Books33,
+    title: 'Morrison',
+    type: 'Literary Fiction',
+    notableWork: 'Beloved'
+  },
+  {
+    id: 7,
+    image:Books34,
+    title: 'Neil Gaiman',
+    type: 'Fantasy/Sci-Fi',
+    notableWork: 'American Gods, Good Omens'
+  }
+]);
   const sliderRef = useRef(null);
   let isDown = false;
   let startX;

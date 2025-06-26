@@ -19,6 +19,10 @@ const Location = require('./models/CurrentLocation')
 const Feedback = require('./models/Feedback');
 
 require("dotenv").config()
+const EMAIL = process.env.EMAIL_USER;
+const PASSWORD = process.env.EMAIL_PASS;
+
+
 
 
 const app = express();
@@ -50,10 +54,137 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-app.post('/feedback',async(req,res)=>{
-  const { firstName, lastName, email, phone, message,messageType} = req.body;
+// Example Node.js backend route
+const Razorpay = require('razorpay');
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
+});
+
+app.post('/create-order', async (req, res) => {
+  try {
+    const { amount } = req.body;
+    const amountInPaise = Math.round(amount * 100); // Convert to paise
+
+    // Validate minimum amount (₹1 = 100 paise)
+    if (amountInPaise < 100) {
+      return res.status(400).json({
+        success: false,
+        message: 'Minimum amount is ₹1.00',
+        minimum_amount: 100,
+      });
+    }
+
+    const options = {
+      amount: amountInPaise,
+      currency: 'INR',
+      receipt: `order_${Date.now()}`,
+      payment_capture: 1
+    };
+
+    const order = await razorpay.orders.create(options);
+    res.json({
+      success: true,
+      order
+    });
+
+  } catch (error) {
+    console.error('Razorpay Error:', error);
+    res.status(500).json({
+      success: false,
+      message: error.error?.description || 'Payment failed'
+    });
+  }
+});
+
+// Verify Payment Endpoint
+app.post('/verify-payment', (req, res) => {
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+  const crypto = require('crypto');
+
+  const generatedSignature = crypto
+    .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+    .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+    .digest('hex');
+
+  if (generatedSignature === razorpay_signature) {
+    res.json({ success: true });
+  } else {
+    res.status(400).json({ success: false });
+  }
+});
+
+
+app.post('/sendFeedbackMail',async(req,res)=>{
+  const { email, firstName, lastName } = req.body;
+
+  
+  const mailOptions = {
+    from:"tarunbommana798@gmail.com",
+    to: email,
+    subject: "Feedback Received",
+    html: `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Feedback Confirmation</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+          }
+          .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          }
+          h1 {
+            color: #009957;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Feedback Received</h1>
+          <p>Dear ${firstName} ${lastName},</p>
+          <p>Thank you for your feedback! We appreciate your input and will review it shortly.</p>
+          <p>If you have any further questions or concerns, feel free to reach out to us.</p>
+          <p>Best regards,<br>Books Store</p>
+        </div>
+      `
+  }
+  await transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email:", error);
+      return res.status(500).json({ message: "Failed to send email" });
+    }
+    console.log("Email sent:", info.response);
+    res.status(200).json({ message: "Email sent successfully" });
+  });
+})
+
+app.post('/feedback', async (req, res) => {
+  const { firstName, lastName, email, phone, message, messageType } = req.body;
   
   try {
+    
+    const existingFeedback = await Feedback.findOne({ email });
+    if (existingFeedback) {
+      console.log("Feedback already submitted by this email:", email);
+      return res.status(200).json({ 
+        message: "You've already submitted feedback. Thank you!",
+        isDuplicate: true  
+      });
+    }
+
     const feedback = new Feedback({
       firstName,
       lastName,
@@ -61,16 +192,18 @@ app.post('/feedback',async(req,res)=>{
       phoneNumber: phone,
       messageType,
       message,
-
     });
 
     await feedback.save();
-    res.status(200).json({ message: "Feedback submitted successfully" });
+    res.status(200).json({ 
+      message: "Feedback submitted successfully",
+      isDuplicate: false
+    });
   } catch (error) {
     console.error("Error submitting feedback:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-})
+});
 
 app.get('/getFeedbackLength',async(req,res)=>{
   const hashmap = {
@@ -443,7 +576,6 @@ app.put('/updatetablet', async (req, res) => {
   }
 });
 
-
 app.get('/getdata', async (req, res) => {
   try {
     const data = await Tablets.find(); 
@@ -493,7 +625,6 @@ app.post('/login', async (req, res) => {
 });
 
 
-
 app.get('/details', async (req, res) => {
     const { email } = req.query; 
     if (!email) {
@@ -512,10 +643,9 @@ app.get('/details', async (req, res) => {
     }
 });
 
-
 app.post('/addtocart',async(req,res)=>{
   const {email,title,price,image}=req.body
-  console.log(email,title,price)
+  console.log(image)
   const user = await Cart.findOne({email})
   
   if(!user){
@@ -551,7 +681,6 @@ app.post('/addtocart',async(req,res)=>{
   
 
 })
-
 
 app.get('/getcartdetailes',async(req,res)=>{
   const {email}=req.query
@@ -693,7 +822,6 @@ app.get('/getAddress',async(req,res)=>{
   res.status(200).json(user.array)
 })
 
-
 app.post('/deleteItem',async(req,res)=>{
   const {email,title}=req.body
   console.log(email)
@@ -741,7 +869,6 @@ app.get('/getLocation',async(req,res)=>{
     res.status(400).json({message:'something went wrong'})
   }
 })
-
 
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id); 
